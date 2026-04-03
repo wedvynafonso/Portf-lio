@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedvyn Afonso &mdash; Diretor de Arte</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#323232;--black:#1D1D1D;--off-white:#f5f3ef;--mid:#8a8a8a;--mid2:#555555;--border:rgba(50,50,50,0.12)}
+html{scroll-behavior:smooth}
+body{background:var(--off-white);color:var(--dark);font-family:'Manrope',sans-serif;font-weight:300;overflow-x:hidden}
+#dot{position:fixed;width:8px;height:8px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,border .2s;top:-20px;left:-20px}
+#dot.hover{width:28px;height:28px;background:transparent;border:1.5px solid var(--black)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:rgba(245,243,239,.92);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
+.nav-logo{display:flex;align-items:center}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--mid);transition:color .2s;font-weight:500}
+.nav-links a:hover{color:var(--black)}
+.lang-toggle{display:flex;gap:.4rem;align-items:center;background:none;border:.5px solid var(--border);padding:.3rem .7rem;border-radius:2rem}
+.lang-btn{font-size:.72rem;letter-spacing:.06em;font-family:'Manrope',sans-serif;background:none;border:none;color:var(--mid);cursor:pointer;transition:color .2s;font-weight:500}
+.lang-btn.active{color:var(--black);font-weight:700}
+.lang-sep{color:var(--border);font-size:.7rem}
+section{padding:0 4rem}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6rem;padding-top:7rem;position:relative;overflow:hidden}
+.hero-tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;font-weight:500}
+.hero-title{font-family:'Manrope',sans-serif;font-size:clamp(3.2rem,8vw,7rem);line-height:1;color:var(--dark);max-width:900px;font-weight:300;letter-spacing:-.02em}
+.hero-title em{font-style:normal;color:var(--black);font-weight:800;letter-spacing:-.02em}
+.hero-desc{margin-top:2.5rem;font-size:.95rem;color:var(--mid);max-width:360px;line-height:1.85;font-weight:300}
+.hero-cta{margin-top:3rem;display:flex;gap:1.5rem;align-items:center}
+.btn-primary{background:var(--black);color:var(--off-white);padding:.9rem 2.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2rem;transition:opacity .2s;font-weight:600;display:inline-block;cursor:pointer;border:none;font-family:'Manrope',sans-serif}
+.btn-primary:hover{opacity:.75}
+.btn-outline{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:.5rem;font-weight:600}
+.btn-outline::after{content:"\2192";transition:transform .2s}
+.btn-outline:hover::after{transform:translateX(4px)}
+.btn-load-more{background:none;border:.5px solid var(--dark);color:var(--dark);padding:.9rem 2.8rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;font-family:'Manrope',sans-serif;border-radius:2rem;cursor:pointer;transition:background .2s,color .2s}
+.btn-load-more:hover{background:var(--black);color:var(--off-white);border-color:var(--black)}
+.hero-number{position:absolute;right:4rem;bottom:4rem;line-height:1;user-select:none;pointer-events:none}
+.hero-scroll{position:absolute;right:4rem;top:50%;transform:translateY(-50%) rotate(90deg);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:.8rem;font-weight:500}
+.hero-scroll::before{content:"";width:40px;height:.5px;background:var(--mid)}
+.divider{height:.5px;background:var(--border);margin:0 4rem}
+.about{padding-top:7rem;padding-bottom:7rem;display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:start}
+.about-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid2);margin-bottom:1.2rem;font-weight:600}
+.about-title{font-family:'Manrope',sans-serif;font-size:clamp(2rem,4vw,3rem);line-height:1.15;color:var(--dark);font-weight:700;letter-spacing:-.02em}
+.about-body{font-size:.92rem;color:var(--mid);line-height:1.9;margin-top:1.5rem;font-weight:300}
+.about-stats{display:flex;gap:3rem;margin-top:3rem}
+.stat-num{font-family:'Manrope',sans-serif;font-size:2.5rem;color:var(--black);font-weight:800;letter-spacing:-.03em}
+.stat-label{font-size:.72rem;letter-spacing:.06em;color:var(--mid);margin-top:.2rem;font-weight:400}
+.services{padding-top:7rem;padding-bottom:7rem}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.section-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid2);margin-bottom:.6rem;font-weight:600}
+.section-title{font-family:'Manrope',sans-serif;font-size:clamp(1.8rem,3.5vw,2.5rem);color:var(--dark);font-weight:700;letter-spacing:-.02em}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.service-card{background:var(--off-white);padding:2.5rem;transition:background .25s}
+.service-card:hover{background:#fff}
+.service-num{font-size:.85rem;color:var(--mid2);margin-bottom:1.2rem;font-weight:300}
+.service-name{font-size:1.05rem;font-weight:600;color:var(--black);margin-bottom:.8rem}
+.service-desc{font-size:.83rem;color:var(--mid);line-height:1.85;font-weight:300}
+.work{padding-top:7rem;padding-bottom:7rem}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:4rem}
+.work-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--black);cursor:pointer}
+.work-thumb{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);display:block}
+.work-item:hover .work-thumb{transform:scale(1.05)}
+.work-scrim{position:absolute;inset:0;background:rgba(29,29,29,0);transition:background .4s}
+.work-item:hover .work-scrim{background:rgba(29,29,29,.45)}
+.work-info-bar{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.8rem;background:rgba(29,29,29,.82);backdrop-filter:blur(6px);transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+.work-item:hover .work-info-bar{transform:translateY(0)}
+.work-info-client{font-size:.85rem;font-weight:600;color:var(--off-white)}
+.work-info-location{font-size:.75rem;font-weight:400;color:rgba(245,243,239,.55);letter-spacing:.04em;text-transform:uppercase}
+.work-placeholder{width:100%;height:100%;background:var(--black);display:flex;align-items:center;justify-content:center}
+.work-placeholder-inner{width:60%;height:60%;border:.5px solid rgba(245,243,239,.08);display:flex;align-items:center;justify-content:center}
+.work-placeholder-inner span{font-size:3rem;color:rgba(245,243,239,.1);font-weight:200}
+.load-more-wrap{display:flex;justify-content:center;margin-top:3rem}
+#projectPage{position:fixed;inset:0;z-index:800;background:var(--off-white);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .45s ease}
+#projectPage.open{opacity:1;pointer-events:all}
+.pp-nav{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 4rem;background:rgba(245,243,239,.92);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
+.pp-back{display:flex;align-items:center;gap:.6rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--dark);cursor:pointer;background:none;border:none;transition:color .2s}
+.pp-back:hover{color:var(--black)}
+.pp-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .2s}
+.pp-back:hover svg{transform:translateX(-3px)}
+.pp-behance{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:color .2s}
+.pp-behance:hover{color:var(--black)}
+.pp-behance::after{content:"\2197";font-size:.9rem}
+.pp-hero{display:grid;grid-template-columns:1fr 1fr;border-bottom:.5px solid var(--border)}
+.pp-hero-info{padding:5rem 4rem;display:flex;flex-direction:column;justify-content:flex-end;border-right:.5px solid var(--border)}
+.pp-cat{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid2);font-weight:600;margin-bottom:1.2rem}
+.pp-title{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;color:var(--black);line-height:1.05;letter-spacing:-.02em;margin-bottom:2rem}
+.pp-desc{font-size:.92rem;color:var(--mid);line-height:1.9;font-weight:300;max-width:420px}
+.pp-meta{margin-top:3rem;display:flex;gap:3rem}
+.pp-meta-label{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);font-weight:500;margin-bottom:.3rem}
+.pp-meta-value{font-size:.88rem;font-weight:600;color:var(--black)}
+.pp-hero-cover{overflow:hidden;min-height:500px}
+.pp-hero-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.pp-cover-placeholder{width:100%;height:100%;min-height:500px;background:var(--black);display:flex;align-items:center;justify-content:center}
+.pp-cover-placeholder span{font-size:5rem;color:rgba(245,243,239,.06);font-weight:200}
+.pp-gallery{padding:4rem;display:grid;gap:1px;background:var(--border);grid-template-columns:repeat(2,1fr)}
+.pp-gallery-item{overflow:hidden;background:var(--black)}
+.pp-gallery-item img{width:100%;display:block;transition:transform .5s}
+.pp-gallery-item:hover img{transform:scale(1.02)}
+.pp-gallery-item.wide{grid-column:1/-1}
+.pp-gallery-placeholder{width:100%;aspect-ratio:16/9;background:#2a2a2a;display:flex;align-items:center;justify-content:center}
+.pp-gallery-placeholder span{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,243,239,.2);font-weight:500}
+.pp-footer{padding:4rem;display:flex;justify-content:space-between;align-items:center;border-top:.5px solid var(--border)}
+.pp-footer-label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);font-weight:500;margin-bottom:.5rem}
+.pp-footer-title{font-size:1.5rem;font-weight:700;color:var(--black);letter-spacing:-.01em;cursor:pointer}
+.pp-footer-title:hover{opacity:.6}
+.faq{padding-top:7rem;padding-bottom:7rem;background:#fff;margin:0 -4rem;padding-left:8rem;padding-right:8rem}
+.faq-list{margin-top:4rem;border-top:.5px solid var(--border)}
+.faq-item{border-bottom:.5px solid var(--border)}
+.faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.8rem 0;background:none;border:none;cursor:pointer;text-align:left;gap:2rem}
+.faq-question-text{font-size:1rem;font-weight:600;color:var(--black);line-height:1.4}
+.faq-icon{flex-shrink:0;width:24px;height:24px;border:.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .2s}
+.faq-icon::after{content:"+";font-size:1rem;color:var(--mid2);line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--black)}
+.faq-item.open .faq-icon::after{color:var(--off-white)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-answer-inner{font-size:.9rem;color:var(--mid);line-height:1.85;font-weight:300;padding-bottom:1.8rem;max-width:680px}
+.faq-item.open .faq-answer{max-height:300px}
+.testimonials{padding-top:7rem;padding-bottom:7rem;background:var(--off-white);padding-left:4rem;padding-right:4rem}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem;background:var(--border)}
+.testi-card{background:var(--off-white);padding:3rem;transition:background .25s}
+.testi-card:hover{background:#fff}
+.testi-quote{font-size:.95rem;line-height:1.8;color:var(--mid);margin-bottom:1.5rem;font-weight:300}
+.testi-quote em{color:var(--black);font-style:normal;font-weight:700}
+.testi-author{font-size:.8rem;font-weight:600;color:var(--black)}
+.testi-role{font-size:.72rem;color:var(--mid);margin-top:.25rem;font-weight:400}
+.testi-accent{width:20px;height:1.5px;background:var(--mid2);margin-bottom:1.5rem}
+/* PHYSICS */
+.fun-section{position:relative;height:500px;overflow:hidden;background:var(--black);user-select:none}
+.phys-el{position:absolute;cursor:grab;touch-action:none;will-change:transform;transform-origin:center center}
+.phys-el:active{cursor:grabbing}
+.drag-pill{background:var(--off-white);color:var(--black);font-size:1rem;font-weight:700;padding:.85rem 2rem;border-radius:999px;white-space:nowrap;letter-spacing:-.01em;box-shadow:0 8px 30px rgba(0,0,0,.5);display:inline-block}
+.drag-pill.dark{background:#2a2a2a;color:var(--off-white)}
+.drag-circle{border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,.5);overflow:hidden;flex-shrink:0}
+.contact{padding-top:7rem;padding-bottom:7rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.contact-big{font-family:'Manrope',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.1;color:var(--dark);font-weight:300;letter-spacing:-.02em}
+.contact-big em{font-style:normal;color:var(--black);font-weight:800;letter-spacing:-.02em}
+.contact-links{display:flex;flex-direction:column}
+.contact-link{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;border-bottom:.5px solid var(--border);text-decoration:none;color:var(--dark);transition:color .2s}
+.contact-link:hover{color:var(--black)}
+.contact-link-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:.25rem;font-weight:500}
+.contact-link-value{font-size:.95rem;font-weight:500}
+.contact-link-arrow{font-size:1.1rem;transition:transform .2s;color:var(--mid)}
+.contact-link:hover .contact-link-arrow{transform:translate(3px,-3px);color:var(--black)}
+footer{padding:2rem 4rem;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:.72rem;color:var(--mid);font-weight:400}
+.footer-name{font-family:'Manrope',sans-serif;font-size:.88rem;color:var(--black);font-weight:700;letter-spacing:-.01em}
+.fade-in{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease}
+.fade-in.hidden{opacity:0;transform:translateY(28px)}
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}.nav-links a{display:none}
+  section{padding:0 1.5rem}.divider{margin:0 1.5rem}
+  .hero{padding-bottom:4rem}.hero-number,.hero-scroll{display:none}
+  .about{grid-template-columns:1fr;gap:2rem;padding-top:4rem;padding-bottom:4rem}.about-stats{gap:1.5rem}
+  .services{padding-top:4rem;padding-bottom:4rem}.services-grid{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr}
+  .faq{padding-left:1.5rem;padding-right:1.5rem;padding-top:4rem;padding-bottom:4rem}
+  .testimonials{padding-left:1.5rem;padding-right:1.5rem;padding-top:4rem;padding-bottom:4rem}.testimonials-grid{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr;gap:3rem;padding-top:4rem;padding-bottom:4rem}
+  footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}
+  .section-header{flex-direction:column;align-items:flex-start;gap:1rem}
+  .pp-nav{padding:1.2rem 1.5rem}.pp-hero{grid-template-columns:1fr}
+  .pp-hero-info{padding:3rem 1.5rem;border-right:none;border-bottom:.5px solid var(--border)}
+  .pp-gallery{padding:1.5rem;grid-template-columns:1fr}
+  .pp-footer{padding:2rem 1.5rem;flex-direction:column;gap:1.5rem;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div id="dot"></div>
+
+<!-- PROJECT PAGE -->
+<div id="projectPage">
+  <div class="pp-nav">
+    <button class="pp-back" onclick="closeProject()">
+      <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span data-pt="Voltar" data-en="Back">Voltar</span>
+    </button>
+    <a id="ppBehanceLink" href="https://www.behance.net/wedvynafonso" target="_blank" class="pp-behance" data-pt="Ver no Behance" data-en="View on Behance">Ver no Behance</a>
+  </div>
+  <div class="pp-hero">
+    <div class="pp-hero-info">
+      <div class="pp-cat" id="ppCat"></div>
+      <h1 class="pp-title" id="ppTitle"></h1>
+      <p class="pp-desc" id="ppDesc"></p>
+      <div class="pp-meta">
+        <div><div class="pp-meta-label" data-pt="Cliente" data-en="Client">Cliente</div><div class="pp-meta-value" id="ppClient"></div></div>
+        <div><div class="pp-meta-label" data-pt="Local" data-en="Location">Local</div><div class="pp-meta-value" id="ppLocation"></div></div>
+        <div><div class="pp-meta-label" data-pt="Ano" data-en="Year">Ano</div><div class="pp-meta-value" id="ppYear"></div></div>
+      </div>
+    </div>
+    <div class="pp-hero-cover" id="ppCover"><div class="pp-cover-placeholder"><span>&#10022;</span></div></div>
+  </div>
+  <div class="pp-gallery" id="ppGallery"></div>
+  <div class="pp-footer">
+    <div>
+      <div class="pp-footer-label" data-pt="Pr&oacute;ximo projeto" data-en="Next project">Pr&oacute;ximo projeto</div>
+      <div class="pp-footer-title" id="ppNext"></div>
+    </div>
+    <a id="ppBehanceLink2" href="https://www.behance.net/wedvynafonso" target="_blank" class="btn-primary" data-pt="Ver projeto completo no Behance" data-en="View full project on Behance">Ver projeto completo no Behance</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 5000 5000" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lgNav" gradientUnits="userSpaceOnUse" x1="4657.499" y1="4391.1973" x2="2423.9617" y2="3097.5144"><stop offset="0" style="stop-color:#fff;stop-opacity:0"/><stop offset="1" style="stop-color:#1D1D1D"/></linearGradient></defs>
+      <path fill="url(#lgNav)" d="M4674.68,4361.54H3122.6c-288.21-6.93-565.76-160.38-718.74-429.2c-153.03-268.76-143.39-585.75-2.24-837.14l6.61-11.24l0.75-1.28l0.96-1.65l6.93-11.83l1.17-1.97c72.41-118.18,174.82-220.27,303.82-293.7c407.78-232.16,876.89-111.42,1158.81,318L4674.68,4361.54z"/>
+      <path fill="#1D1D1D" d="M2992.69,2085.59c104.22-179.78,100.44-392.75,8.47-563.37l-0.11-0.16l-8.1-14.44l-1.01-1.76l-486.21-867.4L325.32,4361.54l980.36-0.53l45.98-0.05c189.42-7.62,371.12-108.43,474.28-283.9L2992.69,2085.59z"/>
+    </svg>
+  </div>
+  <div class="nav-links">
+    <a href="#work" data-pt="Projetos" data-en="Work">Projetos</a>
+    <a href="#about" data-pt="Sobre" data-en="About">Sobre</a>
+    <a href="#services" data-pt="Servi&ccedil;os" data-en="Services">Servi&ccedil;os</a>
+    <a href="#contact" data-pt="Contato" data-en="Contact">Contato</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag" data-pt="Diretor de Arte &amp; Cria&ccedil;&atilde;o" data-en="Art Director &amp; Creative">Diretor de Arte &amp; Cria&ccedil;&atilde;o</div>
+  <h1 class="hero-title">
+    <span data-pt="Construindo" data-en="Building">Construindo</span><br>
+    <em data-pt="experi&ecirc;ncias" data-en="experiences">experi&ecirc;ncias</em><br>
+    <span data-pt="visuais &uacute;nicas" data-en="unique visuals">visuais &uacute;nicas</span>
+  </h1>
+  <p class="hero-desc" data-pt="Wedvyn Afonso &mdash; Diretor de arte com foco em identidade, social media e dire&ccedil;&atilde;o criativa com prop&oacute;sito." data-en="Wedvyn Afonso &mdash; Art director focused on identity, social media and purposeful creative direction.">Wedvyn Afonso &mdash; Diretor de arte com foco em identidade, social media e dire&ccedil;&atilde;o criativa com prop&oacute;sito.</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn-primary" data-pt="Ver Projetos" data-en="View Work">Ver Projetos</a>
+    <a href="#contact" class="btn-outline" data-pt="Entrar em contato" data-en="Get in touch">Entrar em contato</a>
+  </div>
+  <div class="hero-number">
+    <svg width="320" height="320" viewBox="0 0 5000 5000" xmlns="http://www.w3.org/2000/svg" style="opacity:.05">
+      <defs><linearGradient id="lgHero" gradientUnits="userSpaceOnUse" x1="4657.499" y1="4391.1973" x2="2423.9617" y2="3097.5144"><stop offset="0" style="stop-color:#1D1D1D;stop-opacity:0"/><stop offset="1" style="stop-color:#1D1D1D"/></linearGradient></defs>
+      <path fill="url(#lgHero)" d="M4674.68,4361.54H3122.6c-288.21-6.93-565.76-160.38-718.74-429.2c-153.03-268.76-143.39-585.75-2.24-837.14l6.61-11.24l0.75-1.28l0.96-1.65l6.93-11.83l1.17-1.97c72.41-118.18,174.82-220.27,303.82-293.7c407.78-232.16,876.89-111.42,1158.81,318L4674.68,4361.54z"/>
+      <path fill="#1D1D1D" d="M2992.69,2085.59c104.22-179.78,100.44-392.75,8.47-563.37l-0.11-0.16l-8.1-14.44l-1.01-1.76l-486.21-867.4L325.32,4361.54l980.36-0.53l45.98-0.05c189.42-7.62,371.12-108.43,474.28-283.9L2992.69,2085.59z"/>
+    </svg>
+  </div>
+  <div class="hero-scroll" data-pt="Rolar" data-en="Scroll">Rolar</div>
+</section>
+<div class="divider"></div>
+
+<!-- SOBRE -->
+<section id="about" class="about fade-in">
+  <div>
+    <div class="about-label" data-pt="Sobre mim" data-en="About me">Sobre mim</div>
+    <h2 class="about-title" data-pt="Arte que comunica. Design que conecta." data-en="Art that communicates. Design that connects.">Arte que comunica. Design que conecta.</h2>
+    <div class="about-stats">
+      <div><div class="stat-num">5+</div><div class="stat-label" data-pt="Anos no mercado" data-en="Years in market">Anos no mercado</div></div>
+      <div><div class="stat-num">8+</div><div class="stat-label" data-pt="Anos com design" data-en="Years in design">Anos com design</div></div>
+      <div><div class="stat-num">60+</div><div class="stat-label" data-pt="Projetos entregues" data-en="Projects delivered">Projetos entregues</div></div>
+    </div>
+  </div>
+  <div>
+    <p class="about-body" data-pt="Sou o Wedvyn. Designer gr&aacute;fico h&aacute; 8 anos, atuando no mercado h&aacute; 5 &mdash; e desde o in&iacute;cio aprendi que o melhor design n&atilde;o &eacute; o mais bonito, &eacute; o que resolve." data-en="I'm Wedvyn. Graphic designer for 8 years, working in the market for 5 &mdash; and from the start I learned that the best design isn't the most beautiful, it's the one that solves.">Sou o Wedvyn. Designer gr&aacute;fico h&aacute; 8 anos, atuando no mercado h&aacute; 5 &mdash; e desde o in&iacute;cio aprendi que o melhor design n&atilde;o &eacute; o mais bonito, &eacute; o que resolve.</p>
+    <p class="about-body" style="margin-top:1rem" data-pt="Trabalho principalmente com branding, social media e dire&ccedil;&atilde;o criativa. Sou do tipo que vai fundo no problema antes de abrir qualquer software: preciso entender o neg&oacute;cio, o p&uacute;blico, o contexto. S&oacute; depois de ter isso claro &eacute; que come&ccedil;o a criar." data-en="I work mainly with branding, social media and creative direction. I'm the type who goes deep into the problem before opening any software: I need to understand the business, the audience, the context. Only after that is clear do I start creating.">Trabalho principalmente com branding, social media e dire&ccedil;&atilde;o criativa. Sou do tipo que vai fundo no problema antes de abrir qualquer software: preciso entender o neg&oacute;cio, o p&uacute;blico, o contexto. S&oacute; depois de ter isso claro &eacute; que come&ccedil;o a criar.</p>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- SERVICOS -->
+<section id="services" class="services fade-in">
+  <div class="section-header">
+    <div>
+      <div class="section-label" data-pt="O que fa&ccedil;o" data-en="What I do">O que fa&ccedil;o</div>
+      <h2 class="section-title" data-pt="Servi&ccedil;os" data-en="Services">Servi&ccedil;os</h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name" data-pt="Dire&ccedil;&atilde;o de Arte" data-en="Art Direction">Dire&ccedil;&atilde;o de Arte</div>
+      <p class="service-desc" data-pt="Concep&ccedil;&atilde;o e execu&ccedil;&atilde;o de conceitos visuais para campanhas, marcas e conte&uacute;dos com identidade forte." data-en="Conception and execution of visual concepts for campaigns, brands and content with a strong identity.">Concep&ccedil;&atilde;o e execu&ccedil;&atilde;o de conceitos visuais para campanhas, marcas e conte&uacute;dos com identidade forte.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name" data-pt="Identidade Visual" data-en="Visual Identity">Identidade Visual</div>
+      <p class="service-desc" data-pt="Cria&ccedil;&atilde;o de sistemas de identidade visual coesos, modernos e memor&aacute;veis para marcas de todos os segmentos." data-en="Creation of cohesive, modern and memorable visual identity systems for brands across all segments.">Cria&ccedil;&atilde;o de sistemas de identidade visual coesos, modernos e memor&aacute;veis para marcas de todos os segmentos.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name" data-pt="Social Media" data-en="Social Media">Social Media</div>
+      <p class="service-desc" data-pt="Design estrat&eacute;gico para redes sociais: conte&uacute;do visual com linguagem adapt&aacute;vel ao p&uacute;blico e &agrave; plataforma." data-en="Strategic design for social media: visual content with language adaptable to the audience and platform.">Design estrat&eacute;gico para redes sociais: conte&uacute;do visual com linguagem adapt&aacute;vel ao p&uacute;blico e &agrave; plataforma.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name" data-pt="Dire&ccedil;&atilde;o Criativa" data-en="Creative Direction">Dire&ccedil;&atilde;o Criativa</div>
+      <p class="service-desc" data-pt="Lideran&ccedil;a criativa de projetos, alinhando estrat&eacute;gia de marca a uma comunica&ccedil;&atilde;o visualmente poderosa." data-en="Creative leadership of projects, aligning brand strategy with visually powerful communication.">Lideran&ccedil;a criativa de projetos, alinhando estrat&eacute;gia de marca a uma comunica&ccedil;&atilde;o visualmente poderosa.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name" data-pt="Branding" data-en="Branding">Branding</div>
+      <p class="service-desc" data-pt="Constru&ccedil;&atilde;o de marcas com prop&oacute;sito: posicionamento, naming, identidade visual e manual de marca." data-en="Building purposeful brands: positioning, naming, visual identity and brand guidelines.">Constru&ccedil;&atilde;o de marcas com prop&oacute;sito: posicionamento, naming, identidade visual e manual de marca.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name" data-pt="Consultoria" data-en="Consulting">Consultoria</div>
+      <p class="service-desc" data-pt="Avalia&ccedil;&atilde;o estrat&eacute;gica de branding e posicionamento visual para marcas em crescimento ou reposicionamento." data-en="Strategic assessment of branding and visual positioning for growing or repositioning brands.">Avalia&ccedil;&atilde;o estrat&eacute;gica de branding e posicionamento visual para marcas em crescimento ou reposicionamento.</p>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- PROJETOS -->
+<section id="work" class="work fade-in">
+  <div class="section-header">
+    <div>
+      <div class="section-label" data-pt="Portf&oacute;lio" data-en="Portfolio">Portf&oacute;lio</div>
+      <h2 class="section-title" data-pt="Os melhores" data-en="The best ones">Os melhores</h2>
+    </div>
+    <a href="https://www.behance.net/wedvynafonso" target="_blank" class="btn-outline" data-pt="Ver no Behance" data-en="View on Behance">Ver no Behance</a>
+  </div>
+  <div class="work-grid" id="workGrid"></div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+    <button class="btn-load-more" id="loadMoreBtn" onclick="loadMore()" data-pt="Ver mais projetos" data-en="Load more">Ver mais projetos</button>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="faq fade-in">
+  <div class="section-header">
+    <div>
+      <div class="section-label" data-pt="Perguntas frequentes" data-en="FAQ">Perguntas frequentes</div>
+      <h2 class="section-title" data-pt="Se liga nisso aqui" data-en="Things you should know">Se liga nisso aqui</h2>
+    </div>
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+<div class="divider"></div>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials fade-in">
+  <div class="section-header">
+    <div>
+      <div class="section-label" data-pt="Depoimentos" data-en="Testimonials">Depoimentos</div>
+      <h2 class="section-title" data-pt="Meus clientes dizem que&hellip;" data-en="My clients say&hellip;">Meus clientes dizem que&hellip;</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="testi-accent"></div>
+      <p class="testi-quote">Wedvyn tem um olhar &uacute;nico para construir <em>narrativas visuais</em> que realmente conectam com o p&uacute;blico.</p>
+      <div class="testi-author">Nome do Cliente</div>
+      <div class="testi-role">Cargo, Empresa</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-accent"></div>
+      <p class="testi-quote">A entrega foi al&eacute;m do esperado. Profissionalismo, <em>precis&atilde;o criativa</em> e aten&ccedil;&atilde;o aos detalhes em cada etapa.</p>
+      <div class="testi-author">Nome do Cliente</div>
+      <div class="testi-role">Cargo, Empresa</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-accent"></div>
+      <p class="testi-quote">Trabalhar com o Wedvyn foi transformador para a nossa marca. Ele entende o que a marca <em>precisa dizer</em>.</p>
+      <div class="testi-author">Nome do Cliente</div>
+      <div class="testi-role">Cargo, Empresa</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHYSICS -->
+<div class="fun-section" id="funSection"></div>
+<div class="divider"></div>
+
+<!-- CONTATO -->
+<section id="contact" class="contact fade-in">
+  <div>
+    <h2 class="contact-big" data-pt="Vamos criar algo <em>juntos?</em>" data-en="Let's create something <em>together?</em>">Vamos criar algo <em>juntos?</em></h2>
+  </div>
+  <div class="contact-links">
+    <a id="emailLink" href="#" class="contact-link">
+      <div><div class="contact-link-label" data-pt="Email" data-en="Email">Email</div><div class="contact-link-value" id="emailText"></div></div>
+      <span class="contact-link-arrow">&#8599;</span>
+    </a>
+    <a href="https://www.behance.net/wedvynafonso" target="_blank" class="contact-link">
+      <div><div class="contact-link-label">Behance</div><div class="contact-link-value">behance.net/wedvynafonso</div></div>
+      <span class="contact-link-arrow">&#8599;</span>
+    </a>
+    <a href="https://www.linkedin.com/in/wedvynafonso" target="_blank" class="contact-link">
+      <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/wedvynafonso</div></div>
+      <span class="contact-link-arrow">&#8599;</span>
+    </a>
+    <a href="https://www.instagram.com/wedvynafonso" target="_blank" class="contact-link">
+      <div><div class="contact-link-label">Instagram</div><div class="contact-link-value">@wedvynafonso</div></div>
+      <span class="contact-link-arrow">&#8599;</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy" id="footerCopy">&copy; 2026 Wedvyn Afonso. Todos os direitos reservados.</div>
+  <div class="footer-name">Wedvyn Afonso</div>
+</footer>
+
+<script>
+/* ===== PROJECTS ===== */
+var PROJECTS=[
+  {id:'p1',client:'Nome do Cliente 01',location:'S\u00e3o Paulo, Brasil',category:'Identidade Visual',year:'2025',desc:'Descri\u00e7\u00e3o do projeto. Conte o briefing, o desafio criativo e o resultado entregue.',behance:'https://www.behance.net/wedvynafonso',cover:'',images:[{url:'',wide:true},{url:'',wide:false},{url:'',wide:false},{url:'',wide:true}]},
+  {id:'p2',client:'Nome do Cliente 02',location:'Rio de Janeiro, Brasil',category:'Dire\u00e7\u00e3o de Arte',year:'2025',desc:'Descri\u00e7\u00e3o do projeto. Conte o briefing, o desafio criativo e o resultado entregue.',behance:'https://www.behance.net/wedvynafonso',cover:'',images:[{url:'',wide:true},{url:'',wide:false},{url:'',wide:false}]},
+  {id:'p3',client:'Nome do Cliente 03',location:'Lisboa, Portugal',category:'Social Media',year:'2024',desc:'Descri\u00e7\u00e3o do projeto. Conte o briefing, o desafio criativo e o resultado entregue.',behance:'https://www.behance.net/wedvynafonso',cover:'',images:[{url:'',wide:false},{url:'',wide:false},{url:'',wide:true}]},
+  {id:'p4',client:'Nome do Cliente 04',location:'Campinas, Brasil',category:'Branding',year:'2024',desc:'Descri\u00e7\u00e3o do projeto. Conte o briefing, o desafio criativo e o resultado entregue.',behance:'https://www.behance.net/wedvynafonso',cover:'',images:[{url:'',wide:true},{url:'',wide:false},{url:'',wide:false}]}
+];
+
+/* ===== FAQ ===== */
+var FAQS=[
+  {q:'Por que minha marca precisa de uma identidade visual profissional?',a:'Porque a primeira impress\u00e3o importa \u2014 e muito. Uma identidade visual bem constru\u00edda comunica credibilidade antes mesmo de voc\u00ea dizer uma palavra. Ela diferencia sua marca da concorr\u00eancia, cria reconhecimento e transmite profissionalismo. Em mercados competitivos, quem n\u00e3o investe em imagem profissional fica invis\u00edvel.'},
+  {q:'Minha loja j\u00e1 tem um logo feito no Canva. Preciso mesmo refazer?',a:'Depende. Se o logo n\u00e3o transmite os valores do seu neg\u00f3cio, parece gen\u00e9rico ou n\u00e3o funciona bem em diferentes formatos, provavelmente est\u00e1 te custando clientes sem voc\u00ea perceber. Um sistema de identidade profissional vai muito al\u00e9m do logo: \u00e9 cores, tipografia, tom de voz e consist\u00eancia.'},
+  {q:'Como o design de social media afeta minhas vendas?',a:'Diretamente. Pessoas compram de quem parece confi\u00e1vel, e o seu perfil \u00e9 muitas vezes o primeiro contato com o cliente. Um feed descuidado, sem identidade visual clara, afasta antes de atrair. Design estrat\u00e9gico nas redes sociais aumenta engajamento, constr\u00f3i autoridade e, no fim das contas, converte mais.'},
+  {q:'Quanto tempo leva para criar uma identidade visual?',a:'Em m\u00e9dia, de 2 a 4 semanas para um projeto completo de branding. O prazo depende da complexidade, da clareza do briefing e da agilidade nas aprova\u00e7\u00f5es. Trabalho com cronogramas definidos desde o in\u00edcio para garantir que tudo saia no tempo combinado.'},
+  {q:'Voc\u00ea trabalha com empresas pequenas ou s\u00f3 grandes neg\u00f3cios?',a:'Trabalho com marcas de todos os portes. Na verdade, gosto muito de acompanhar neg\u00f3cios menores desde o come\u00e7o \u2014 quando a identidade \u00e9 constru\u00edda certo desde a base, o crescimento \u00e9 muito mais s\u00f3lido.'},
+  {q:'Como funciona o processo de trabalho?',a:'Come\u00e7amos com uma conversa para entender seu neg\u00f3cio, p\u00fablico e objetivos. Depois vem o briefing, a pesquisa, a concep\u00e7\u00e3o e as apresenta\u00e7\u00f5es. Voc\u00ea participa de cada etapa e tem espa\u00e7o para dar feedback. N\u00e3o entrego arquivo e sumo \u2014 ainda estou por aqui se precisar.'}
+];
+
+(function buildFaq(){
+  var list=document.getElementById('faqList');
+  FAQS.forEach(function(f,i){
+    var item=document.createElement('div');
+    item.className='faq-item';
+    item.innerHTML='<button class="faq-question" onclick="toggleFaq('+i+')"><span class="faq-question-text">'+f.q+'</span><span class="faq-icon"></span></button><div class="faq-answer"><div class="faq-answer-inner">'+f.a+'</div></div>';
+    list.appendChild(item);
+  });
+})();
+
+function toggleFaq(i){
+  document.querySelectorAll('.faq-item').forEach(function(el,idx){
+    idx===i ? el.classList.toggle('open') : el.classList.remove('open');
+  });
+}
+
+/* ===== CURSOR ===== */
+var dot=document.getElementById('dot');
+document.addEventListener('mousemove',function(e){dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+function addHover(sel){document.querySelectorAll(sel).forEach(function(el){el.addEventListener('mouseenter',function(){dot.classList.add('hover');});el.addEventListener('mouseleave',function(){dot.classList.remove('hover');});});}
+addHover('a,button,.service-card,.testi-card,.faq-question,.work-item');
+
+/* ===== WORK GRID ===== */
+var VISIBLE=4;
+var grid=document.getElementById('workGrid');
+
+function renderItem(p,i){
+  var item=document.createElement('div');
+  item.className='work-item';
+  item.style.cssText='opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease';
+  var media=p.cover?'<img src="'+p.cover+'" alt="'+p.client+'" class="work-thumb">':'<div class="work-placeholder"><div class="work-placeholder-inner"><span>0'+(i+1)+'</span></div></div>';
+  item.innerHTML=media+'<div class="work-scrim"></div><div class="work-info-bar"><span class="work-info-client">'+p.client+'</span><span class="work-info-location">'+p.location+'</span></div>';
+  item.addEventListener('click',function(){openProject(i);});
+  item.addEventListener('mouseenter',function(){dot.classList.add('hover');});
+  item.addEventListener('mouseleave',function(){dot.classList.remove('hover');});
+  grid.appendChild(item);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){item.style.opacity='1';item.style.transform='translateY(0)';});});
+}
+
+function buildGrid(){
+  var end=Math.min(VISIBLE,PROJECTS.length);
+  for(var i=0;i<end;i++) renderItem(PROJECTS[i],i);
+  updateLoadMore();
+}
+
+function loadMore(){
+  var start=grid.children.length;
+  var end=Math.min(start+4,PROJECTS.length);
+  for(var i=start;i<end;i++) renderItem(PROJECTS[i],i);
+  VISIBLE=end;
+  updateLoadMore();
+}
+
+function updateLoadMore(){
+  var wrap=document.getElementById('loadMoreWrap');
+  if(wrap) wrap.style.display=grid.children.length<PROJECTS.length?'flex':'none';
+}
+
+buildGrid();
+
+/* ===== PROJECT PAGE ===== */
+var page=document.getElementById('projectPage');
+function openProject(i){
+  var p=PROJECTS[i];
+  document.getElementById('ppCat').textContent=p.category;
+  document.getElementById('ppTitle').textContent=p.client;
+  document.getElementById('ppDesc').textContent=p.desc;
+  document.getElementById('ppClient').textContent=p.client;
+  document.getElementById('ppLocation').textContent=p.location;
+  document.getElementById('ppYear').textContent=p.year;
+  document.getElementById('ppBehanceLink').href=p.behance;
+  document.getElementById('ppBehanceLink2').href=p.behance;
+  var cover=document.getElementById('ppCover');
+  cover.innerHTML=p.cover?'<img src="'+p.cover+'" alt="'+p.client+'">':'<div class="pp-cover-placeholder"><span>&#10022;</span></div>';
+  var gallery=document.getElementById('ppGallery');
+  gallery.innerHTML='';
+  p.images.forEach(function(img){
+    var el=document.createElement('div');
+    el.className='pp-gallery-item'+(img.wide?' wide':'');
+    el.innerHTML=img.url?'<img src="'+img.url+'" alt="">':'<div class="pp-gallery-placeholder"><span>Adicione a imagem</span></div>';
+    gallery.appendChild(el);
+  });
+  var nextIdx=(i+1)%PROJECTS.length;
+  var nextEl=document.getElementById('ppNext');
+  nextEl.textContent=PROJECTS[nextIdx].client+' \u2192';
+  nextEl.onclick=function(){openProject(nextIdx);};
+  page.scrollTop=0;
+  page.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeProject(){page.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProject();});
+
+/* ===== PHYSICS ===== */
+(function(){
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js';
+  s.onload=initPhysics;
+  document.head.appendChild(s);
+
+  var LP1='M4674.68,4361.54H3122.6c-288.21-6.93-565.76-160.38-718.74-429.2c-153.03-268.76-143.39-585.75-2.24-837.14l6.61-11.24l0.75-1.28l0.96-1.65l6.93-11.83l1.17-1.97c72.41-118.18,174.82-220.27,303.82-293.7c407.78-232.16,876.89-111.42,1158.81,318L4674.68,4361.54z';
+  var LP2='M2992.69,2085.59c104.22-179.78,100.44-392.75,8.47-563.37l-0.11-0.16l-8.1-14.44l-1.01-1.76l-486.21-867.4L325.32,4361.54l980.36-0.53l45.98-0.05c189.42-7.62,371.12-108.43,474.28-283.9L2992.69,2085.59z';
+
+  function mkSVG(sz,fg){
+    var id='g'+(Math.random()*1e8|0);
+    return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 5000 5000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0">'
+      +'<defs><linearGradient id="'+id+'" gradientUnits="userSpaceOnUse" x1="4657" y1="4391" x2="2423" y2="3097">'
+      +'<stop offset="0" style="stop-color:'+fg+';stop-opacity:0"/><stop offset="1" style="stop-color:'+fg+'"/>'
+      +'</linearGradient></defs>'
+      +'<path fill="url(#'+id+')" d="'+LP1+'"/>'
+      +'<path fill="'+fg+'" d="'+LP2+'"/>'
+      +'</svg>';
+  }
+
+  var ITEMS=[
+    {type:'pill',text:'#borafechar',dark:false},
+    {type:'pill',text:'#vem',dark:true},
+    {type:'pill',text:'#branding',dark:false},
+    {type:'pill',text:'#socialMedia',dark:true},
+    {type:'pill',text:'#identidadeVisual',dark:false},
+    {type:'circle',sz:100,dark:false},
+    {type:'circle',sz:72,dark:true},
+    {type:'circle',sz:100,dark:false},
+    {type:'circle',sz:72,dark:false},
+    {type:'circle',sz:100,dark:true}
+  ];
+
+  function initPhysics(){
+    var M=Matter;
+    var c=document.getElementById('funSection');
+    var W=c.offsetWidth, H=c.offsetHeight;
+    var engine=M.Engine.create({gravity:{x:0,y:1.8}});
+    var world=engine.world;
+
+    /* ground + walls */
+    M.World.add(world,[
+      M.Bodies.rectangle(W/2,H+25,W+200,50,{isStatic:true,friction:0.6,restitution:0.4}),
+      M.Bodies.rectangle(-25,H/2,50,H*3,{isStatic:true,restitution:0.4}),
+      M.Bodies.rectangle(W+25,H/2,50,H*3,{isStatic:true,restitution:0.4})
+    ]);
+
+    var els=[];
+    var slots=ITEMS.length;
+
+    ITEMS.forEach(function(cfg,i){
+      var el=document.createElement('div');
+      el.className='phys-el';
+      var body,w,h;
+      /* spread spawn across width with some random offset */
+      var slotW=W/slots;
+      var sx=slotW*i+slotW/2+(Math.random()-0.5)*slotW*0.4;
+      var sy=-80-i*90;
+
+      if(cfg.type==='pill'){
+        var inner=document.createElement('div');
+        inner.className='drag-pill'+(cfg.dark?' dark':'');
+        inner.textContent=cfg.text;
+        el.appendChild(inner);
+        c.appendChild(el);
+        w=inner.offsetWidth+6; h=inner.offsetHeight+6;
+        body=M.Bodies.rectangle(sx,sy,w,h,{restitution:0.4,friction:0.5,frictionAir:0.018,angle:(Math.random()-0.5)*0.4,chamfer:{radius:h/2}});
+      } else {
+        var sz=cfg.sz;
+        var fg=cfg.dark?'#f5f3ef':'#1D1D1D';
+        var bgCol=cfg.dark?'#2a2a2a':'#f5f3ef';
+        var logoSz=Math.round(sz*0.65);
+        el.innerHTML='<div class="drag-circle" style="width:'+sz+'px;height:'+sz+'px;background:'+bgCol+';align-items:center;justify-content:center;display:flex">'+mkSVG(logoSz,fg)+'</div>';
+        c.appendChild(el);
+        w=sz; h=sz;
+        body=M.Bodies.circle(sx,sy,sz/2,{restitution:0.5,friction:0.35,frictionAir:0.012});
+      }
+
+      M.World.add(world,body);
+      els.push({el:el,body:body,w:w,h:h});
+    });
+
+    /* runner */
+    var runner=M.Runner.create();
+    M.Runner.run(runner,engine);
+
+    /* DOM sync */
+    (function loop(){
+      requestAnimationFrame(loop);
+      els.forEach(function(it){
+        var p=it.body.position,a=it.body.angle;
+        it.el.style.left=(p.x-it.w/2)+'px';
+        it.el.style.top=(p.y-it.h/2)+'px';
+        it.el.style.transform='rotate('+a+'rad)';
+      });
+    })();
+
+    /* drag */
+    var grabbed=null,vx=0,vy=0,lx=0,ly=0;
+    c.addEventListener('mousedown',onDown);
+    c.addEventListener('touchstart',function(e){onDown(e.touches[0]);},{passive:true});
+
+    function onDown(e){
+      var r=c.getBoundingClientRect();
+      var mx=e.clientX-r.left, my=e.clientY-r.top;
+      var best=null,bestD=Infinity;
+      els.forEach(function(it){
+        var p=it.body.position;
+        var d=Math.hypot(p.x-mx,p.y-my);
+        var thr=Math.max(it.w,it.h)*0.65;
+        if(d<thr&&d<bestD){bestD=d;best=it;}
+      });
+      if(!best)return;
+      grabbed=best; lx=mx; ly=my; vx=0; vy=0;
+      grabbed.el.style.zIndex=20;
+      M.Body.setStatic(grabbed.body,true);
+
+      function onMove(e2){
+        var t=e2.touches?e2.touches[0]:e2;
+        var nx=t.clientX-r.left, ny=t.clientY-r.top;
+        vx=nx-lx; vy=ny-ly; lx=nx; ly=ny;
+        M.Body.setPosition(grabbed.body,{x:nx,y:ny});
+      }
+      function onUp(){
+        if(grabbed){
+          M.Body.setStatic(grabbed.body,false);
+          M.Body.setVelocity(grabbed.body,{x:vx*0.8,y:vy*0.8});
+          grabbed.el.style.zIndex='';
+          grabbed=null;
+        }
+        document.removeEventListener('mousemove',onMove);
+        document.removeEventListener('mouseup',onUp);
+        document.removeEventListener('touchmove',onMove);
+        document.removeEventListener('touchend',onUp);
+      }
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+      document.addEventListener('touchmove',onMove,{passive:true});
+      document.addEventListener('touchend',onUp);
+    }
+  }
+})();
+
+/* ===== EMAIL ===== */
+(function(){
+  var u='wedvynafonso',d='gmail.com',e=u+'@'+d;
+  var el=document.getElementById('emailLink'),et=document.getElementById('emailText');
+  if(el)el.href='mai'+'lto:'+e;
+  if(et)et.textContent=e;
+})();
+
+/* ===== LANG ===== */
+var currentLang='pt';
+function setLang(lang){
+  if(lang===currentLang)return;
+  currentLang=lang;
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.textContent.trim()===lang.toUpperCase());
+  });
+  document.querySelectorAll('[data-'+lang+']').forEach(function(el){
+    el.innerHTML=el.getAttribute('data-'+lang);
+  });
+  var fc=document.getElementById('footerCopy');
+  if(fc)fc.textContent=lang==='en'
+    ?'\u00a9 2026 Wedvyn Afonso. All rights reserved.'
+    :'\u00a9 2026 Wedvyn Afonso. Todos os direitos reservados.';
+  document.documentElement.lang=lang==='en'?'en':'pt-BR';
+}
+
+/* ===== FADE IN ===== */
+if('IntersectionObserver' in window){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('hidden');obs.unobserve(e.target);}});
+  },{threshold:0.06});
+  document.querySelectorAll('.fade-in').forEach(function(el){el.classList.add('hidden');obs.observe(el);});
+}
+</script>
+</body>
+</html>
